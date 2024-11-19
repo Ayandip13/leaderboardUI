@@ -1,7 +1,23 @@
 import { View, Text, StyleSheet, Image, FlatList } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
+import {useFonts, Poppins_700Bold_Italic, Poppins_600SemiBold as customBold} from "@expo-google-fonts/poppins"
+import * as SplashScreen from 'expo-splash-screen';
+
+SplashScreen.preventAutoHideAsync();
 
 const index = () => {
+  const [loaded, error] = useFonts({
+    Poppins_700Bold_Italic,
+    customBold,
+  })
+
+  useEffect(()=>{
+    if (loaded){
+      SplashScreen.hideAsync();     {/*We use this because when our font will not load then the splash screen will show, and after loading the font.. the main screen will show*/}
+    }
+  },[loaded])
+
+
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
@@ -94,6 +110,7 @@ const styles = StyleSheet.create({
   },
   mainCardRankContainerText: {
     color: "black",
+    fontFamily: 'Poppins_700Bold_Italic'
   },
   card: {
     padding: 10,
